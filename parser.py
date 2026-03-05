@@ -5,7 +5,15 @@ Updated to work with current LinkedIn HTML structure
 
 import re
 from bs4 import BeautifulSoup
-from config import EXCLUDE_TITLE_KEYWORDS, EXCLUDE_VISA_KEYWORDS, MAX_APPLICANTS
+from config import (
+    EXCLUDE_TITLE_KEYWORDS,
+    EXCLUDE_VISA_KEYWORDS,
+    MAX_APPLICANTS,
+    SALARY_PATTERNS,
+    VISA_SPONSOR_POSITIVE,
+    VISA_SPONSOR_NEGATIVE,
+    SKILL_KEYWORDS,
+)
 
 
 def parse_job_cards(html_content):
@@ -290,3 +298,124 @@ def extract_education_requirement(description):
             return label
 
     return "官网无说明"
+
+
+# ============================================================================
+# V2 NEW FUNCTIONS
+# ============================================================================
+
+def extract_salary(description):
+    """
+    Extract salary information from job description (V2 NEW)
+
+    Args:
+        description: Job description text
+
+    Returns:
+        Salary string or "未标明"
+    """
+    if not description:
+        return "未标明"
+
+    for pattern in SALARY_PATTERNS:
+        match = re.search(pattern, description, re.IGNORECASE)
+        if match:
+            return match.group(0).strip()
+
+    return "未标明"
+
+
+def classify_visa_status(description):
+    """
+    Classify visa sponsorship status from job description (V2 NEW)
+
+    Args:
+        description: Job description text
+
+    Returns:
+        Visa status string: "✅ 可提供工签", "❌ 不提供工签", or "未说明"
+    """
+    if not description:
+        return "未说明"
+
+    text_lower = description.lower()
+
+    # Check for positive sponsorship keywords
+    for phrase in VISA_SPONSOR_POSITIVE:
+        if phrase in text_lower:
+            return "✅ 可提供工签"
+
+    # Check for negative sponsorship keywords
+    for phrase in VISA_SPONSOR_NEGATIVE:
+        if phrase in text_lower:
+            return "❌ 不提供工签"
+
+    return "未说明"
+
+
+def extract_company_size(description):
+    """
+    Extract company size from job description (V2 NEW)
+
+    Args:
+        description: Job description text
+
+    Returns:
+        Company size string or "未知"
+    """
+    if not description:
+        return "未知"
+
+    # Patterns to match company size
+    patterns = [
+        r'([\d,]+-[\d,]+)\s*employees',
+        r'([\d,]+)\+?\s*employees',
+        r'Company size[:\s]*([\d,]+-[\d,]+)',
+    ]
+
+    for pattern in patterns:
+        match = re.search(pattern, description, re.IGNORECASE)
+        if match:
+            return match.group(0).strip()
+
+    return "未知"
+
+
+def extract_skill_keywords(description):
+    """
+    Extract skill keywords from job description (V2 NEW)
+    Extract 5-8 core skills/tools to help quickly assess job match
+
+    Args:
+        description: Job description text
+
+    Returns:
+        Comma-separated skills string or "/"
+    """
+    if not description:
+        return "/"
+
+    found = []
+    text_lower = description.lower()
+
+    # Search for each skill keyword
+    for skill in SKILL_KEYWORDS:
+        # For short keywords (≤2 chars), use word boundary matching
+        if len(skill) <= 2:
+            pattern = r'\b' + re.escape(skill) + r'\b'
+            if re.search(pattern, description):  # Case-sensitive for short keywords
+                found.append(skill)
+        else:
+            # For longer keywords, case-insensitive matching
+            if skill.lower() in text_lower:
+                found.append(skill)
+
+    # Deduplicate and limit to 8 keywords
+    seen = set()
+    unique = []
+    for s in found:
+        if s.lower() not in seen:
+            seen.add(s.lower())
+            unique.append(s)
+
+    return ", ".join(unique[:8]) if unique else "/"

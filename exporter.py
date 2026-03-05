@@ -1,12 +1,19 @@
 """
-Export job data to Excel (XLSX) format
+Export job data to Excel (XLSX) format (V2)
 """
 
 import os
 from datetime import datetime
 from openpyxl import Workbook
 from openpyxl.styles import PatternFill, Font, Alignment
-from config import EXCEL_COLUMNS, COLUMN_WIDTHS, HEADER_COLOR, LINK_COLOR
+from config import (
+    EXCEL_COLUMNS,
+    COLUMN_WIDTHS,
+    HEADER_COLOR,
+    LINK_COLOR,
+    VISA_YES_COLOR,
+    VISA_NO_COLOR,
+)
 
 
 def export_to_excel(jobs_data, output_filename=None):
@@ -54,40 +61,51 @@ def export_to_excel(jobs_data, output_filename=None):
     for col_letter, width in COLUMN_WIDTHS.items():
         ws.column_dimensions[col_letter].width = width
 
-    # Write data rows
+    # Write data rows (V2 - new column structure)
     for row_num, job in enumerate(jobs_data, 2):
-        # 更新时间 (Update date)
+        # A: 更新时间 (Update date)
         ws.cell(row=row_num, column=1).value = job.get("update_date", datetime.now().strftime("%Y-%m-%d"))
 
-        # 公司名称 (Company)
+        # B: 公司名称 (Company)
         ws.cell(row=row_num, column=2).value = job.get("company", "")
 
-        # 项目类型 (Project type)
+        # C: 项目类型 (Project type)
         ws.cell(row=row_num, column=3).value = job.get("project_type", "")
 
-        # 闭岗时间 (Closed date) - LinkedIn doesn't provide this
-        ws.cell(row=row_num, column=4).value = "/"
+        # D: 岗位类型 (Job type)
+        ws.cell(row=row_num, column=4).value = job.get("job_type", "")
 
-        # 项目时间 (Project duration) - LinkedIn doesn't provide this
-        ws.cell(row=row_num, column=5).value = "/"
+        # E: 岗位名称 (Job title)
+        ws.cell(row=row_num, column=5).value = job.get("title", "")
 
-        # 岗位类型 (Job type)
-        ws.cell(row=row_num, column=6).value = job.get("job_type", "")
+        # F: 工作地区 (Location)
+        ws.cell(row=row_num, column=6).value = job.get("location", "")
 
-        # 岗位名称 (Job title)
-        ws.cell(row=row_num, column=7).value = job.get("title", "")
+        # G: 💰 薪资 (Salary) - V2 NEW
+        ws.cell(row=row_num, column=7).value = job.get("salary", "未标明")
 
-        # 工作地区 (Location)
-        ws.cell(row=row_num, column=8).value = job.get("location", "")
+        # H: 🔑 签证/工签 (Visa Status) - V2 NEW
+        visa_cell = ws.cell(row=row_num, column=8)
+        visa_status = job.get("visa_status", "未说明")
+        visa_cell.value = visa_status
 
-        # 学历要求 (Education requirement)
-        ws.cell(row=row_num, column=9).value = job.get("education", "官网无说明")
+        # Apply conditional formatting for visa column
+        if "可提供工签" in visa_status:
+            visa_cell.fill = PatternFill(start_color=VISA_YES_COLOR, end_color=VISA_YES_COLOR, fill_type="solid")
+        elif "不提供工签" in visa_status:
+            visa_cell.fill = PatternFill(start_color=VISA_NO_COLOR, end_color=VISA_NO_COLOR, fill_type="solid")
 
-        # 毕业时间 (Graduation date)
-        ws.cell(row=row_num, column=10).value = "/"
+        # I: 🏢 公司规模 (Company Size) - V2 NEW
+        ws.cell(row=row_num, column=9).value = job.get("company_size", "未知")
 
-        # Link
-        link_cell = ws.cell(row=row_num, column=11)
+        # J: 📋 岗位关键词 (Skill Keywords) - V2 NEW
+        ws.cell(row=row_num, column=10).value = job.get("skills", "/")
+
+        # K: 学历要求 (Education requirement)
+        ws.cell(row=row_num, column=11).value = job.get("education", "官网无说明")
+
+        # L: link
+        link_cell = ws.cell(row=row_num, column=12)
         link_url = job.get("link", "")
         if link_url:
             link_cell.value = link_url

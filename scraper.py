@@ -33,11 +33,14 @@ from parser import (
     parse_job_cards,
     parse_job_detail,
     filter_by_title,
-    filter_by_visa,
     filter_by_applicants,
     classify_job_type,
     classify_project_type,
     extract_education_requirement,
+    extract_salary,          # V2 NEW
+    classify_visa_status,    # V2 NEW
+    extract_company_size,    # V2 NEW
+    extract_skill_keywords,  # V2 NEW
 )
 from exporter import export_to_excel
 
@@ -204,7 +207,7 @@ class LinkedInJobScraper:
 
     def process_job_details(self, jobs):
         """
-        Fetch and process job detail pages
+        Fetch and process job detail pages (V2 - extended data extraction)
 
         Args:
             jobs: List of job dictionaries
@@ -228,15 +231,14 @@ class LinkedInJobScraper:
             # Parse details
             details = parse_job_detail(html)
 
-            # Filter by visa requirements
-            if not filter_by_visa(details["description"]):
-                continue
+            # V2: Changed logic - no longer filter by visa, just classify
+            # Now we keep all jobs and mark visa status for user decision
 
-            # Filter by applicant count
+            # Filter by applicant count (keep this filter)
             if not filter_by_applicants(details["applicant_count"]):
                 continue
 
-            # Add processed data
+            # Add processed data (V2 - new fields added)
             processed_job = {
                 "job_id": job["job_id"],
                 "title": job["title"],
@@ -253,6 +255,11 @@ class LinkedInJobScraper:
                 "employment_type": details["employment_type"],
                 "job_function": details["job_function"],
                 "industries": details["industries"],
+                # V2 NEW FIELDS:
+                "salary": extract_salary(details["description"]),
+                "visa_status": classify_visa_status(details["description"]),
+                "company_size": extract_company_size(details["description"]),
+                "skills": extract_skill_keywords(details["description"]),
             }
 
             processed_jobs.append(processed_job)

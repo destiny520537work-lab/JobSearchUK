@@ -32,3 +32,4 @@ backend/data/sponsor_register.csv
 # Misc debug
 response_debug.html
 project_complete.txt
+.DS_Store

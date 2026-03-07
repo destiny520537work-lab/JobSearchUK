@@ -1,0 +1,12 @@
+{
+  "header": { "title": "GradJobsUK", "subtitle": "Emplois UK pour étudiants internationaux", "uploadCV": "Importer CV" },
+  "search": { "placeholder": "Rechercher: ex. \"Analyste données Londres\"", "button": "Rechercher" },
+  "dateTabs": { "today": "Aujourd'hui", "threeDays": "3 Jours", "thisWeek": "Cette semaine", "twoWeeks": "2 Semaines", "all": "Tout" },
+  "sortTabs": { "bestMatch": "Meilleure correspondance", "bestMatchHint": "(Importez votre CV d'abord)", "topSalary": "Meilleur salaire", "newest": "Plus récent" },
+  "filters": { "title": "Filtres", "visaStatus": "Statut visa", "location": "Lieu", "salary": "Salaire", "jobType": "Type de poste", "skills": "Compétences", "any": "Tout", "clearAll": "Tout effacer" },
+  "stats": { "totalJobs": "Total postes", "canSponsor": "Sponsor visa", "avgSalary": "Salaire moyen", "withSalary": "Avec salaire" },
+  "charts": { "byLocation": "Par lieu", "byVisa": "Statut visa", "bySalary": "Tranches salariales" },
+  "table": { "date": "Date", "company": "Entreprise", "type": "Type", "jobTitle": "Poste", "location": "Lieu", "salary": "Salaire", "visaStatus": "Visa", "noResults": "Aucun poste trouvé.", "showing": "{{count}} sur {{total}} postes", "exportXLSX": "Exporter XLSX" },
+  "footer": { "updatedEvery": "Données mises à jour toutes les 6 heures", "lastUpdate": "Dernière mise à jour : {{time}} UTC", "source": "Source : LinkedIn Guest API | Registre GOV.UK", "disclaimer": "⚠️ Les infos visa sont indicatives — vérifiez toujours avec l'employeur" },
+  "cvUpload": { "title": "Importer votre CV", "description": "Importez votre CV pour activer le tri par correspondance. Votre CV n'est pas stocké.", "dropzone": "Déposez PDF ou DOCX ici, ou cliquez pour parcourir", "uploading": "Analyse...", "success": "CV analysé ! Passez au tri Meilleure correspondance.", "error": "Échec de l'import. Veuillez utiliser un fichier PDF ou DOCX.", "close": "Fermer" }
+}

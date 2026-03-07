@@ -1,0 +1,12 @@
+{
+  "header": { "title": "GradJobsUK", "subtitle": "UK Banen voor Internationale Studenten", "uploadCV": "CV Uploaden" },
+  "search": { "placeholder": "Zoeken: bijv. \"Data Analyst Londen\"", "button": "Zoeken" },
+  "dateTabs": { "today": "Vandaag", "threeDays": "3 Dagen", "thisWeek": "Deze week", "twoWeeks": "2 Weken", "all": "Alles" },
+  "sortTabs": { "bestMatch": "Beste match", "bestMatchHint": "(Upload eerst uw CV)", "topSalary": "Hoogste salaris", "newest": "Nieuwste" },
+  "filters": { "title": "Filters", "visaStatus": "Visastatus", "location": "Locatie", "salary": "Salaris", "jobType": "Functietype", "skills": "Vaardigheden", "any": "Alles", "clearAll": "Alles wissen" },
+  "stats": { "totalJobs": "Totaal vacatures", "canSponsor": "Visa sponsoring", "avgSalary": "Gem. salaris", "withSalary": "Met salaris" },
+  "charts": { "byLocation": "Per locatie", "byVisa": "Visastatus", "bySalary": "Salarisbanden" },
+  "table": { "date": "Datum", "company": "Bedrijf", "type": "Type", "jobTitle": "Functietitel", "location": "Locatie", "salary": "Salaris", "visaStatus": "Visa", "noResults": "Geen vacatures gevonden.", "showing": "{{count}} van {{total}} vacatures", "exportXLSX": "Exporteer XLSX" },
+  "footer": { "updatedEvery": "Gegevens elke 6 uur bijgewerkt", "lastUpdate": "Laatste update: {{time}} UTC", "source": "Bron: LinkedIn Guest API | GOV.UK Sponsorregister", "disclaimer": "⚠️ Visa-info is indicatief — verifieer altijd bij de werkgever" },
+  "cvUpload": { "title": "CV Uploaden", "description": "Upload uw CV om de beste match sortering te activeren. Uw CV wordt niet opgeslagen.", "dropzone": "Sleep PDF of DOCX hier naartoe, of klik om te bladeren", "uploading": "Analyseren...", "success": "CV geanalyseerd! Schakel over naar Beste match sortering.", "error": "Upload mislukt. Gebruik een PDF of DOCX bestand.", "close": "Sluiten" }
+}

@@ -1,0 +1,72 @@
+{
+  "header": {
+    "title": "GradJobsUK",
+    "subtitle": "UK Graduate Jobs for International Students",
+    "uploadCV": "Upload CV"
+  },
+  "search": {
+    "placeholder": "Search jobs: e.g. \"Data Analyst London\"",
+    "button": "Search"
+  },
+  "dateTabs": {
+    "today": "Today",
+    "threeDays": "3 Days",
+    "thisWeek": "This Week",
+    "twoWeeks": "2 Weeks",
+    "all": "All"
+  },
+  "sortTabs": {
+    "bestMatch": "Best Match",
+    "bestMatchHint": "(Upload CV first)",
+    "topSalary": "Top Salary",
+    "newest": "Newest"
+  },
+  "filters": {
+    "title": "Filters",
+    "visaStatus": "Visa Status",
+    "location": "Location",
+    "salary": "Salary",
+    "jobType": "Job Type",
+    "skills": "Skills",
+    "any": "Any",
+    "clearAll": "Clear All"
+  },
+  "stats": {
+    "totalJobs": "Total Jobs",
+    "canSponsor": "Can Sponsor",
+    "avgSalary": "Avg Salary",
+    "withSalary": "With Salary"
+  },
+  "charts": {
+    "byLocation": "Jobs by Location",
+    "byVisa": "Visa Status",
+    "bySalary": "Salary Bands"
+  },
+  "table": {
+    "date": "Date",
+    "company": "Company",
+    "type": "Type",
+    "jobTitle": "Job Title",
+    "location": "Location",
+    "salary": "Salary",
+    "visaStatus": "Visa",
+    "noResults": "No jobs found. Try adjusting your filters.",
+    "showing": "Showing {{count}} of {{total}} jobs",
+    "exportXLSX": "Export XLSX"
+  },
+  "footer": {
+    "updatedEvery": "Data updated every 6 hours",
+    "lastUpdate": "Last update: {{time}} UTC",
+    "source": "Source: LinkedIn Guest API | GOV.UK Sponsor Register",
+    "disclaimer": "⚠️ Visa info is indicative only — always verify with the employer"
+  },
+  "cvUpload": {
+    "title": "Upload Your CV",
+    "description": "Upload your CV to enable Best Match sorting. Your CV is not stored.",
+    "dropzone": "Drop PDF or DOCX here, or click to browse",
+    "uploading": "Analysing...",
+    "success": "CV matched! Switch to Best Match sorting.",
+    "error": "Upload failed. Please try a PDF or DOCX file.",
+    "close": "Close"
+  }
+}

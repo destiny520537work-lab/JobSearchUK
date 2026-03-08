@@ -23,6 +23,7 @@ Users see only cached data — no real-time LinkedIn requests, so no ban risk.
 
 ## User Flow
 
+```mermaid
 sequenceDiagram
     participant Cron as Cron Worker (6h)
     participant Scraper as Scraper.py
@@ -54,11 +55,11 @@ sequenceDiagram
     User->>FE: Export Data
     FE->>BE: GET /api/export
     BE-->>FE: XLSX File
-
----
+```
 
 ## Technical Architecture
 
+```mermaid
 graph TB
     subgraph Client_Layer["Frontend - React / Vercel"]
         UI["React App"]
@@ -112,8 +113,7 @@ graph TB
     
     %% Legacy Reference
     Archive[/"_archive/ Original CLI Tool"/] -.->|Redesigned from| Backend_Layer
-
----    
+```    
 
 ## Quick Start (Local Development)
 

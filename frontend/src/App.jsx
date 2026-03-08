@@ -10,6 +10,7 @@ import StatsCards from './components/StatsCards'
 import ChartsPanel from './components/ChartsPanel'
 import JobTable from './components/JobTable'
 import CVUpload from './components/CVUpload'
+import SkeletonLoader from './components/SkeletonLoader'
 
 import { useJobs } from './hooks/useJobs'
 import { useStats } from './hooks/useStats'
@@ -66,6 +67,10 @@ export default function App() {
         <div className="flex gap-5 items-start">
           <FilterSidebar filters={filters} onUpdate={updateFilters} />
 
+          {/* Show skeleton on first load (no data yet) */}
+          {loading && data.items.length === 0 && !stats ? (
+            <SkeletonLoader />
+          ) : (
           <div className="flex-1 min-w-0 flex flex-col gap-4">
             {/* Stats cards */}
             <StatsCards stats={stats} />
@@ -79,8 +84,8 @@ export default function App() {
                 Error loading jobs: {error}
               </div>
             ) : loading && data.items.length === 0 ? (
-              <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
-                <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+              <div className="bg-white rounded-xl border border-gray-200 p-8 text-center">
+                <div className="w-7 h-7 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
                 <p className="text-sm text-gray-400">Loading jobs...</p>
               </div>
             ) : data.items.length === 0 ? (
@@ -100,6 +105,7 @@ export default function App() {
               />
             )}
           </div>
+          )}
         </div>
       </main>
 

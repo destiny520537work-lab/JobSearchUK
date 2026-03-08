@@ -21,6 +21,26 @@ const JOB_TYPE_MAP = {
   '其他': 'Other',
 }
 
+// "Greater London, England, United Kingdom" → { value: "Greater London", label: "Greater London, UK" }
+// value (city name) is sent to backend which uses ilike "%value%", so it still matches the full stored string
+function normalizeLocations(locations) {
+  const seen = new Set()
+  return locations
+    .map(raw => {
+      const city = raw
+        .replace(/,\s*(England|Scotland|Wales|Northern Ireland|United Kingdom)(,.*)?$/, '')
+        .trim()
+      return { raw, city }
+    })
+    .filter(({ city }) => {
+      if (seen.has(city.toLowerCase())) return false
+      seen.add(city.toLowerCase())
+      return true
+    })
+    .sort((a, b) => a.city.localeCompare(b.city))
+    .map(({ city }) => ({ value: city, label: `${city}, UK` }))
+}
+
 const SALARY_BANDS = [
   { value: null, label: 'Any' },
   { value: 20000, label: '£20k+' },
@@ -124,7 +144,7 @@ export default function FilterSidebar({ filters, onUpdate }) {
 
         <FilterSection title={t('filters.location')}>
           <CheckboxList
-            options={filterOptions.locations}
+            options={normalizeLocations(filterOptions.locations || [])}
             selected={filters.location}
             onChange={val => onUpdate({ location: val })}
           />

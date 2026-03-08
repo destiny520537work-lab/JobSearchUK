@@ -23,6 +23,7 @@ Users see only cached data — no real-time LinkedIn requests, so no ban risk.
 
 ## User Flow
 
+```mermaid
 sequenceDiagram
     participant Cron as Cron Worker (6h)
     participant Scraper as Scraper.py

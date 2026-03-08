@@ -13,12 +13,17 @@ const VISA_OPTIONS = [
 
 const JOB_TYPE_MAP = {
   '软件': 'Software Eng',
-  '数据': 'Data',
-  'AI': 'AI / ML',
+  '数据工程': 'Data Engineering',
+  '数据分析': 'Data Analytics',
+  '数据科学': 'Data Science',
+  'AI': 'ML / AI',
+  '云运维': 'Cloud & DevOps',
+  '安全': 'Cybersecurity',
   '产品': 'Product',
-  '商业': 'Business',
+  '商业': 'Business Analysis',
   '定量': 'Quantitative',
   '其他': 'Other',
+  '数据': 'Data',
 }
 
 // "Greater London, England, United Kingdom" → { value: "Greater London", label: "Greater London, UK" }

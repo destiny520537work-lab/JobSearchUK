@@ -19,6 +19,22 @@ from database import Job, get_session
 
 router = APIRouter(prefix="/api/export", tags=["export"])
 
+JOB_TYPE_EN = {
+    "软件": "Software Eng",
+    "数据工程": "Data Engineering",
+    "数据分析": "Data Analytics",
+    "数据科学": "Data Science",
+    "AI": "ML / AI",
+    "云运维": "Cloud & DevOps",
+    "安全": "Cybersecurity",
+    "产品": "Product",
+    "商业": "Business Analysis",
+    "定量": "Quantitative",
+    "其他": "Other",
+    # backward compat for old records
+    "数据": "Data",
+}
+
 HEADERS = [
     "Date", "Company", "Type", "Job Type", "Job Title",
     "Location", "Salary", "Visa Status", "Company Size",
@@ -107,7 +123,7 @@ async def export_jobs(
             date_str,
             job.company,
             job.project_type,
-            job.job_type,
+            JOB_TYPE_EN.get(job.job_type, job.job_type),
             job.title,
             job.location,
             job.salary,

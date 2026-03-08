@@ -123,28 +123,64 @@ def filter_by_applicants(applicant_count) -> bool:
 
 def classify_job_type(title: str) -> str:
     t = title.lower()
-    # Software Engineering (check before data to avoid misclassifying "data engineer")
+    # Cloud & DevOps (before software to separate cloud from general SWE)
     if any(k in t for k in [
-        "software engineer", "software developer", "backend", "frontend",
-        "full stack", "fullstack", "platform engineer", "devops", "cloud engineer",
-        "site reliability", "sre", "infrastructure engineer",
+        "devops", "cloud engineer", "cloud architect", "cloud support",
+        "platform engineer", "site reliability", "sre", "infrastructure engineer",
+        "devsecops", "cloud native",
     ]):
-        return "软件"
+        return "云运维"
+    # Cybersecurity
     if any(k in t for k in [
-        "data engineer", "data analyst", "data science", "analytics engineer",
-        "analytics", "business intelligence", " bi ",
+        "security engineer", "security analyst", "cyber", "information security",
+        "penetration", "soc analyst", "vulnerability",
     ]):
-        return "数据"
+        return "安全"
+    # ML / AI (before data science to catch "ml" overlap)
     if any(k in t for k in [
-        "machine learning", "ml engineer", "ai engineer", "nlp", "ai ",
-        "computer vision", "deep learning", "prompt engineer", "llm",
+        "machine learning", "ml engineer", "ai engineer", "nlp engineer",
+        "computer vision", "deep learning", "prompt engineer", "llm engineer",
+        "artificial intelligence", "reinforcement learning",
     ]):
         return "AI"
-    if any(k in t for k in ["product analyst", "product manager"]):
+    # Data Science
+    if any(k in t for k in [
+        "data scientist", "data science", "research scientist", "applied scientist",
+    ]):
+        return "数据科学"
+    # Data Engineering
+    if any(k in t for k in [
+        "data engineer", "analytics engineer", "etl engineer",
+        "data platform", "data infrastructure", "data pipeline",
+    ]):
+        return "数据工程"
+    # Data Analytics
+    if any(k in t for k in [
+        "data analyst", "business intelligence", " bi ", "bi analyst",
+        "analytics", "reporting analyst", "insight analyst", "product analyst",
+    ]):
+        return "数据分析"
+    # Software Engineering
+    if any(k in t for k in [
+        "software engineer", "software developer", "backend", "frontend",
+        "full stack", "fullstack", "web developer", "mobile developer",
+        "ios", "android", "developer", "programmer", "engineer",
+    ]):
+        return "软件"
+    # Product
+    if any(k in t for k in ["product manager", "product owner"]):
         return "产品"
-    if any(k in t for k in ["business analyst", "technology analyst"]):
+    # Business Analysis
+    if any(k in t for k in [
+        "business analyst", "technology analyst", "it analyst",
+        "systems analyst", "management consultant",
+    ]):
         return "商业"
-    if any(k in t for k in ["quantitative", "statistical", "credit risk"]):
+    # Quantitative / Finance
+    if any(k in t for k in [
+        "quantitative", "quant ", "credit risk", "risk analyst",
+        "actuar", "financial engineer",
+    ]):
         return "定量"
     return "其他"
 

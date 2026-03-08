@@ -1,7 +1,7 @@
 {
   "header": {
     "title": "GradJobsUK",
-    "subtitle": "UK Graduate Jobs for International Students",
+    "subtitle": "Helping Graduates Break into UK Tech",
     "uploadCV": "Upload CV"
   },
   "search": {
@@ -33,7 +33,7 @@
   },
   "stats": {
     "totalJobs": "Total Jobs",
-    "canSponsor": "Can Sponsor",
+    "canSponsor": "Sponsor / Licensed",
     "avgSalary": "Avg Salary",
     "withSalary": "With Salary"
   },

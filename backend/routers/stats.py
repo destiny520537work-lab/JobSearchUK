@@ -83,8 +83,8 @@ async def get_stats(
             "last_updated": datetime.utcnow().isoformat(),
         }
 
-    # Sponsor rate: jobs with ✅
-    sponsor_count = sum(1 for j in jobs if j.visa_status and "✅" in j.visa_status)
+    # Sponsor rate: ✅ confirmed + 🟡 licensed company (can sponsor even if role unspecified)
+    sponsor_count = sum(1 for j in jobs if j.visa_status and ("✅" in j.visa_status or "🟡" in j.visa_status))
     sponsor_rate = round(sponsor_count / total, 4)
 
     # Salary stats

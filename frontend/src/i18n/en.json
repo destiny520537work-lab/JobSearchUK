@@ -52,7 +52,7 @@
     "visaStatus": "Visa",
     "noResults": "No jobs found. Try adjusting your filters.",
     "showing": "Showing {{count}} of {{total}} jobs",
-    "exportXLSX": "Export XLSX"
+    "exportXLSX": "Export Excel"
   },
   "footer": {
     "updatedEvery": "Data updated every 6 hours",

@@ -6,7 +6,7 @@
   "filters": { "title": "Filtros", "visaStatus": "Estado visa", "location": "Ubicación", "salary": "Salario", "jobType": "Tipo de trabajo", "skills": "Habilidades", "any": "Cualquiera", "clearAll": "Limpiar todo" },
   "stats": { "totalJobs": "Total empleos", "canSponsor": "Patrocinio visa", "avgSalary": "Salario promedio", "withSalary": "Con salario" },
   "charts": { "byLocation": "Por ubicación", "byVisa": "Estado de visa", "bySalary": "Bandas salariales" },
-  "table": { "date": "Fecha", "company": "Empresa", "type": "Tipo", "jobTitle": "Puesto", "location": "Ubicación", "salary": "Salario", "visaStatus": "Visa", "noResults": "No se encontraron empleos.", "showing": "{{count}} de {{total}} empleos", "exportXLSX": "Exportar XLSX" },
+  "table": { "date": "Fecha", "company": "Empresa", "type": "Tipo", "jobTitle": "Puesto", "location": "Ubicación", "salary": "Salario", "visaStatus": "Visa", "noResults": "No se encontraron empleos.", "showing": "{{count}} de {{total}} empleos", "exportXLSX": "Exportar Excel" },
   "footer": { "updatedEvery": "Datos actualizados cada 6 horas", "lastUpdate": "Última actualización: {{time}} UTC", "source": "Fuente: LinkedIn Guest API | Registro GOV.UK", "disclaimer": "⚠️ La info de visa es orientativa — verifique siempre con el empleador" },
   "cvUpload": { "title": "Subir su CV", "description": "Suba su CV para activar la clasificación por coincidencia. Su CV no se almacena.", "dropzone": "Suelte PDF o DOCX aquí, o haga clic para buscar", "uploading": "Analizando...", "success": "¡CV analizado! Cambie a clasificación por mejor coincidencia.", "error": "Error al subir. Use un archivo PDF o DOCX.", "close": "Cerrar" }
 }

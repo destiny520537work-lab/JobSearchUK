@@ -4,7 +4,7 @@ Accepts the same filter params as /api/jobs.
 """
 
 import io
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date as date_type
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends, Query
@@ -52,8 +52,15 @@ async def export_jobs(
     days: int = Query(default=7, ge=1, le=365),
     db: AsyncSession = Depends(get_session),
 ):
-    cutoff = datetime.utcnow() - timedelta(days=days)
-    conditions = [Job.is_active == True, Job.scraped_at >= cutoff]
+    cutoff_dt = datetime.utcnow() - timedelta(days=days)
+    cutoff_date = cutoff_dt.date()
+    conditions = [
+        Job.is_active == True,
+        or_(
+            Job.posted_date >= cutoff_date,
+            and_(Job.posted_date == None, Job.scraped_at >= cutoff_dt),
+        ),
+    ]
 
     if q:
         search_term = f"%{q}%"

@@ -5,6 +5,8 @@ import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-alpine.css'
 import { Download } from 'lucide-react'
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || ''
+
 const VISA_BG = {
   '✅': '#d5f5d5',
   '⚠️': '#fef3c7',
@@ -114,7 +116,7 @@ export default function JobTable({ jobs, total, page, pages, pageSize, onPageCha
     filters.job_type.forEach(j => params.append('job_type', j))
     filters.skills.forEach(s => params.append('skills', s))
     params.append('days', filters.days)
-    return `/api/export?${params.toString()}`
+    return `${API_BASE}/api/export?${params.toString()}`
   }, [filters])
 
   return (

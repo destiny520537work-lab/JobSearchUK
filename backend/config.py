@@ -9,7 +9,7 @@ BASE_DETAIL_URL = "https://www.linkedin.com/jobs-guest/jobs/api/jobPosting"
 # Search parameters
 LOCATION = "United Kingdom"
 GEO_ID = "101165590"
-TIME_FILTER = "r86400"  # Past 24 hours
+TIME_FILTER = "r604800"  # Past 7 days
 EXPERIENCE_LEVEL = "1,2"  # Internship, Entry level
 
 # Pagination

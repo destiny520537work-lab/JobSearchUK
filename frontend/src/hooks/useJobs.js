@@ -7,7 +7,7 @@ const DEFAULT_FILTERS = {
   location: [],
   job_type: [],
   skills: [],
-  days: 7,
+  days: 365,
   sort: 'newest',
   page: 1,
   page_size: 50,

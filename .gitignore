@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Database
+*.db
+*.db-shm
+*.db-wal
+
+# Environment
+.env
+!.env.example
+
+# Node
+node_modules/
+dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Output files
+output/
+*.xlsx
+
+
+# Misc debug
+response_debug.html
+project_complete.txt
+.DS_Store

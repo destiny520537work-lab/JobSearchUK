@@ -1,0 +1,72 @@
+{
+  "header": {
+    "title": "GradJobsUK",
+    "subtitle": "面向留学生的英国求职平台",
+    "uploadCV": "上传简历"
+  },
+  "search": {
+    "placeholder": "搜索职位：例如 \"数据分析师 伦敦\"",
+    "button": "搜索"
+  },
+  "dateTabs": {
+    "today": "今天",
+    "threeDays": "3天内",
+    "thisWeek": "本周",
+    "twoWeeks": "两周内",
+    "all": "全部"
+  },
+  "sortTabs": {
+    "bestMatch": "最佳匹配",
+    "bestMatchHint": "（请先上传简历）",
+    "topSalary": "薪资最高",
+    "newest": "最新发布"
+  },
+  "filters": {
+    "title": "筛选",
+    "visaStatus": "工签状态",
+    "location": "工作地点",
+    "salary": "薪资范围",
+    "jobType": "岗位类型",
+    "skills": "技能要求",
+    "any": "不限",
+    "clearAll": "清除全部"
+  },
+  "stats": {
+    "totalJobs": "职位总数",
+    "canSponsor": "可提供工签",
+    "avgSalary": "平均薪资",
+    "withSalary": "标明薪资"
+  },
+  "charts": {
+    "byLocation": "按地区分布",
+    "byVisa": "工签状态分布",
+    "bySalary": "薪资区间分布"
+  },
+  "table": {
+    "date": "日期",
+    "company": "公司",
+    "type": "类型",
+    "jobTitle": "职位名称",
+    "location": "地点",
+    "salary": "薪资",
+    "visaStatus": "工签",
+    "noResults": "未找到符合条件的职位，请调整筛选条件。",
+    "showing": "显示 {{count}} / {{total}} 个职位",
+    "exportXLSX": "导出 Excel"
+  },
+  "footer": {
+    "updatedEvery": "数据每6小时更新一次",
+    "lastUpdate": "最后更新：{{time}} UTC",
+    "source": "数据来源：LinkedIn Guest API | 英国移民局 Sponsor 名单",
+    "disclaimer": "⚠️ 工签信息仅供参考，请以雇主官方说明为准"
+  },
+  "cvUpload": {
+    "title": "上传简历",
+    "description": "上传您的简历以启用「最佳匹配」排序功能。简历不会被储存。",
+    "dropzone": "将 PDF 或 DOCX 拖放至此，或点击浏览文件",
+    "uploading": "分析中...",
+    "success": "简历匹配完成！切换到「最佳匹配」排序查看结果。",
+    "error": "上传失败，请上传 PDF 或 DOCX 格式的文件。",
+    "close": "关闭"
+  }
+}

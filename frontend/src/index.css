@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* AG Grid overrides to match Tailwind design */
+.ag-theme-alpine {
+  --ag-border-color: #e5e7eb;
+  --ag-header-background-color: #f9fafb;
+  --ag-header-foreground-color: #374151;
+  --ag-row-hover-color: #eff6ff;
+  --ag-selected-row-background-color: #dbeafe;
+  --ag-font-size: 12px;
+  --ag-font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+.ag-theme-alpine .ag-header-cell-label {
+  font-weight: 600;
+}

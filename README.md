@@ -1,185 +1,133 @@
-# LinkedIn UK Job Scraper
+# GradJobsUK
 
-A powerful Python tool to automatically scrape job listings from LinkedIn UK using the public Guest API (no login required).
+> Forked and redesigned from [JobSearchUK](https://github.com/destiny520537work-lab/JobSearchUK) (personal CLI tool) into a full-stack web platform.
 
-## Features
+A web platform for international students searching for graduate jobs in the UK, featuring automatic visa sponsorship detection and LinkedIn data cached every 6 hours.
 
-- ✅ **No authentication required** - Uses LinkedIn's public Guest API
-- ✅ **Targeted search** - 14 curated job titles for data/product/AI roles
-- ✅ **Multi-level filtering** - Title, visa requirements, and applicant count filters
-- ✅ **Comprehensive details** - Company, location, education requirements, applicant count
-- ✅ **Auto-categorization** - Automatically classifies job types (数据/产品/AI/商业/定量/其他)
-- ✅ **Anti-ban protection** - Random delays and user agent rotation
-- ✅ **Progress tracking** - Real-time progress bars with tqdm
-- ✅ **Excel export** - Professional formatted XLSX output with styling
+---
 
-## Installation
+## Architecture
 
-### Prerequisites
-- Python 3.8+
-- pip
+```
+Cron Worker (every 6h)
+  └─ LinkedIn Guest API → PostgreSQL
+         ↓
+    FastAPI backend (pure DB queries)
+         ↓
+    React frontend (Vercel)
+```
 
-### Setup
+Users see only cached data — no real-time LinkedIn requests, so no ban risk.
 
-1. Clone or download this repository
-2. Install dependencies:
+---
+
+## Quick Start (Local Development)
+
+### Backend
 
 ```bash
+cd backend
+python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
+cp .env.example .env        # uses SQLite by default
+
+# Start the API server
+uvicorn main:app --reload --port 8000
+
+# Trigger an immediate scrape (in another terminal)
+curl -X POST http://localhost:8000/api/admin/scrape
 ```
 
-## Configuration
-
-Edit `config.py` to customize:
-
-- **Search keywords** - Job titles to search for
-- **Exclusion rules** - Title keywords to exclude (Senior, Lead, etc.)
-- **Visa filters** - Keywords indicating visa sponsorship requirements
-- **Search parameters** - Location, time range, experience level
-- **Rate limiting** - Request delays and retry settings
-
-## Usage
-
-### Basic Usage
+### Frontend
 
 ```bash
-python scraper.py
+cd frontend
+npm install
+npm run dev
+# Open http://localhost:5173
 ```
 
-This will:
-1. Search all configured keywords
-2. Filter results by title, visa requirements, and applicant count
-3. Fetch detailed information for each job
-4. Export results to `output/UK_jobs_YYYY-MM-DD.xlsx`
-
-### Custom Output Filename
+### With Docker Compose
 
 ```bash
-python scraper.py --output my_jobs.xlsx
+docker-compose up
+# Backend: http://localhost:8000
+# Frontend: http://localhost:5173
 ```
 
-### Search Specific Keywords
+---
 
-```bash
-python scraper.py --keywords "Data Analyst" "Product Manager"
-```
+## Visa Sponsorship — 3-Layer Verification
+
+1. **Sentence-level regex** — positive/negative signals in job descriptions
+2. **GOV.UK Sponsor Register** — fuzzy match against official licensed sponsors list
+3. **Combined verdict** — 5 possible outcomes (✅ ⚠️ 🟡 ❌ Not specified)
+
+To enable Layer 2, download the CSV from [GOV.UK](https://www.gov.uk/government/publications/register-of-licensed-sponsors-workers) and place it at `backend/data/sponsor_register.csv`.
+
+---
+
+## API Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/api/jobs` | Jobs with filtering, pagination, sorting |
+| GET | `/api/stats` | Dashboard statistics |
+| GET | `/api/filters` | Available filter values |
+| GET | `/api/export` | Export filtered jobs as XLSX |
+| POST | `/api/match` | Upload CV to get TF-IDF match scores |
+| POST | `/api/admin/scrape` | Manually trigger a scrape |
+
+---
+
+## Deployment
+
+| Service | Platform | Notes |
+|---------|----------|-------|
+| Frontend | Vercel | Free tier |
+| Backend | Railway / Render | Set `DATABASE_URL` env var |
+| Database | Supabase PostgreSQL | Free tier 500MB |
+
+---
 
 ## Project Structure
 
 ```
-linkedin-job-scraper/
-├── scraper.py          # Main scraper program
-├── config.py           # Configuration (keywords, filters, parameters)
-├── parser.py           # HTML parsing and filtering logic
-├── exporter.py         # Excel export functionality
-├── requirements.txt    # Python dependencies
-├── README.md           # This file
-└── output/             # Output directory (auto-created)
-    └── UK_jobs_YYYY-MM-DD.xlsx  # Result file
+├── _archive/           # Original CLI tool (preserved at git tag v2-cli-original)
+├── backend/
+│   ├── main.py         # FastAPI entry + APScheduler
+│   ├── database.py     # SQLAlchemy async models
+│   ├── config.py       # Constants and keywords
+│   ├── scraper/
+│   │   ├── worker.py        # Cron job main logic
+│   │   ├── parser.py        # HTML parsing
+│   │   ├── visa_checker.py  # 3-layer visa verification
+│   │   └── sponsor_list.py  # GOV.UK CSV loader
+│   ├── routers/        # API route handlers (jobs/stats/filters/export/match)
+│   ├── data/           # Place sponsor_register.csv here
+│   └── requirements.txt
+├── frontend/
+│   ├── src/
+│   │   ├── App.jsx
+│   │   ├── components/  # Header, SearchBar, DateTabs, SortTabs,
+│   │   │                # FilterSidebar, StatsCards, ChartsPanel,
+│   │   │                # JobTable, CVUpload
+│   │   ├── hooks/       # useJobs, useStats
+│   │   └── i18n/        # en, zh, fr, es, nl
+│   └── package.json
+└── docker-compose.yml
 ```
 
-## How It Works
+---
 
-### Phase 1: Search
-- Searches each keyword using LinkedIn's Guest API
-- Extracts job ID, title, company, location, and link
-- Applies title-level filtering (excludes Senior, Lead, etc.)
-- Paginates through all results
+## Original CLI Tool
 
-### Phase 2: Detail Processing
-- Fetches detailed information for each job
-- Extracts description, applicant count, and criteria
-- Filters by visa requirements (permanent right to work, etc.)
-- Filters by applicant count (≤ 100)
-- Classifies job type and project type
+The original command-line scraper is preserved in `_archive/`. You can still run it independently:
 
-### Phase 3: Export
-- Deduplicates jobs by ID
-- Exports to professional Excel file
-- Applies formatting (headers, colors, hyperlinks)
+```bash
+cd _archive
+pip install -r requirements.txt
+python scraper.py
+```
 
-## Filtering Rules
-
-### Title Exclusions
-Excludes jobs containing:
-- Senior, Lead, Principal, Director, Head of, Manager (except "AI Product Manager" and "Product Manager")
-
-### Visa Exclusions
-Excludes jobs requiring:
-- Permanent right to work
-- Settled status
-- Indefinite leave
-- Right to work permanently
-- UK work permit holders only
-
-### Applicant Filtering
-- Keeps only jobs with ≤ 100 applicants
-- If applicant count is unknown, the job is kept
-
-## Output Format
-
-Excel file with columns:
-- **更新时间** - Scrape date (YYYY-MM-DD)
-- **公司名称** - Company name
-- **项目类型** - Project type (full time / internship / graduate)
-- **闭岗时间** - Closing date (LinkedIn doesn't provide this)
-- **项目时间** - Project duration (LinkedIn doesn't provide this)
-- **岗位类型** - Job classification (数据/产品/AI/商业/定量/其他)
-- **岗位名称** - Job title
-- **工作地区** - Location
-- **学历要求** - Education requirement
-- **毕业时间** - Graduation date (not available)
-- **link** - LinkedIn job URL (clickable)
-
-## Anti-Ban Protection
-
-The scraper includes several anti-detection measures:
-- Random User-Agent rotation
-- Random delays between requests (1.5-3 seconds)
-- Exponential backoff for rate limiting (429 errors)
-- Maximum retry limit (3 attempts)
-
-## Performance
-
-Typical execution time: **5-15 minutes** depending on:
-- Number of results
-- Network speed
-- Request delays
-- Rate limiting
-
-## Notes
-
-1. **Rate Limiting** - If you encounter 429 errors, the tool automatically waits 60 seconds and retries up to 3 times
-2. **Applicant Count** - Not all jobs may have applicant information available; missing values are marked as "未知"
-3. **Deduplication** - Same job may appear in multiple keyword searches; automatically deduplicated by job_id
-4. **Encoding** - All text is UTF-8 encoded
-5. **Recommended Usage** - Run once per day with `f_TPR=r86400` to fetch only the past 24 hours of new jobs
-
-## Troubleshooting
-
-### No results found
-- Check internet connection
-- Verify keywords in config.py are correct
-- LinkedIn may have changed their HTML structure - check browser console
-
-### Rate limit errors persist
-- Increase `RETRY_DELAY` in config.py
-- Increase `MIN_DELAY` and `MAX_DELAY` values
-- Run at different times
-
-### Missing applicant information
-- This is normal; some jobs don't display applicant counts
-- The scraper keeps these jobs (marked as "未知")
-
-## Legal Notice
-
-This tool uses LinkedIn's public Guest API, which is accessible without authentication. Scraping should comply with:
-- LinkedIn's Terms of Service
-- Local data protection laws
-- Responsible use guidelines
-
-Use this tool for personal job search purposes only.
-
-## License
-
-This project is provided as-is for educational purposes.
+The original version is also tagged in git: `v2-cli-original`

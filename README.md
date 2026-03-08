@@ -6,6 +6,11 @@ A web platform for international students searching for graduate jobs in the UK,
 
 ---
 
+## 🔗 Live Demo
+Check out the live project here: [GradJobsUK - Job Search for International Students](https://job-search-uk.vercel.app)
+
+---
+
 ## Architecture
 
 ```

@@ -4,11 +4,11 @@ GET /api/stats — aggregated statistics for the dashboard cards and charts.
 
 import re
 from collections import Counter
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date as date_type
 from typing import Optional
 
 from fastapi import APIRouter, Depends, Query
-from sqlalchemy import and_, select
+from sqlalchemy import and_, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from database import Job, get_session
@@ -55,8 +55,17 @@ async def get_stats(
     days: int = Query(default=7, ge=1, le=365),
     db: AsyncSession = Depends(get_session),
 ):
-    cutoff = datetime.utcnow() - timedelta(days=days)
-    stmt = select(Job).where(and_(Job.is_active == True, Job.scraped_at >= cutoff))
+    cutoff_dt = datetime.utcnow() - timedelta(days=days)
+    cutoff_date = cutoff_dt.date()
+    stmt = select(Job).where(
+        and_(
+            Job.is_active == True,
+            or_(
+                Job.posted_date >= cutoff_date,
+                and_(Job.posted_date == None, Job.scraped_at >= cutoff_dt),
+            ),
+        )
+    )
     result = await db.execute(stmt)
     jobs = result.scalars().all()
 

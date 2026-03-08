@@ -3,7 +3,7 @@ GET /api/jobs — multi-filter + pagination + sorting.
 Pure database queries, zero LinkedIn requests.
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date as date_type
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends, Query
@@ -43,11 +43,16 @@ async def get_jobs(
     page_size: int = Query(default=50, ge=1, le=200),
     db: AsyncSession = Depends(get_session),
 ):
-    cutoff = datetime.utcnow() - timedelta(days=days)
+    cutoff_dt = datetime.utcnow() - timedelta(days=days)
+    cutoff_date = cutoff_dt.date()
 
     conditions = [
         Job.is_active == True,
-        Job.scraped_at >= cutoff,
+        # Use posted_date when available; fall back to scraped_at
+        or_(
+            Job.posted_date >= cutoff_date,
+            and_(Job.posted_date == None, Job.scraped_at >= cutoff_dt),
+        ),
     ]
 
     if q:

@@ -4,7 +4,7 @@
   "dateTabs": { "today": "Vandaag", "threeDays": "3 Dagen", "thisWeek": "Deze week", "twoWeeks": "2 Weken", "all": "Alles" },
   "sortTabs": { "bestMatch": "Beste match", "bestMatchHint": "(Upload eerst uw CV)", "topSalary": "Hoogste salaris", "newest": "Nieuwste" },
   "filters": { "title": "Filters", "visaStatus": "Visastatus", "location": "Locatie", "salary": "Salaris", "jobType": "Functietype", "skills": "Vaardigheden", "any": "Alles", "clearAll": "Alles wissen" },
-  "stats": { "totalJobs": "Totaal vacatures", "canSponsor": "Visa sponsoring", "avgSalary": "Gem. salaris", "withSalary": "Met salaris" },
+  "stats": { "totalJobs": "Totaal vacatures", "visaSponsored": "Visa gesponsord", "companyLicensed": "Bedrijf gelicentieerd", "avgSalary": "Gem. salaris", "withSalary": "Met salaris" },
   "charts": { "byLocation": "Per locatie", "byVisa": "Visastatus", "bySalary": "Salarisbanden" },
   "table": { "date": "Datum", "company": "Bedrijf", "type": "Type", "jobTitle": "Functietitel", "location": "Locatie", "salary": "Salaris", "visaStatus": "Visa", "noResults": "Geen vacatures gevonden.", "showing": "{{count}} van {{total}} vacatures", "exportXLSX": "Exporteer Excel" },
   "footer": { "updatedEvery": "Gegevens elke 6 uur bijgewerkt", "lastUpdate": "Laatste update: {{time}} UTC", "source": "Bron: LinkedIn Guest API | GOV.UK Sponsorregister", "disclaimer": "⚠️ Visa-info is indicatief — verifieer altijd bij de werkgever" },

@@ -33,7 +33,8 @@
   },
   "stats": {
     "totalJobs": "Total Jobs",
-    "canSponsor": "Sponsor / Licensed",
+    "visaSponsored": "Visa Sponsored",
+    "companyLicensed": "Company Licensed",
     "avgSalary": "Avg Salary",
     "withSalary": "With Salary"
   },

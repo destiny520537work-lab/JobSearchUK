@@ -33,7 +33,8 @@
   },
   "stats": {
     "totalJobs": "职位总数",
-    "canSponsor": "可提供工签",
+    "visaSponsored": "确认工签",
+    "companyLicensed": "有资质公司",
     "avgSalary": "平均薪资",
     "withSalary": "标明薪资"
   },

@@ -73,7 +73,8 @@ async def get_stats(
     if total == 0:
         return {
             "total_jobs": 0,
-            "sponsor_rate": 0,
+            "visa_sponsored_rate": 0,
+            "licensed_rate": 0,
             "avg_salary": None,
             "salary_disclosed_rate": 0,
             "by_location": [],
@@ -83,9 +84,11 @@ async def get_stats(
             "last_updated": datetime.utcnow().isoformat(),
         }
 
-    # Sponsor rate: ✅ confirmed + 🟡 licensed company (can sponsor even if role unspecified)
-    sponsor_count = sum(1 for j in jobs if j.visa_status and ("✅" in j.visa_status or "🟡" in j.visa_status))
-    sponsor_rate = round(sponsor_count / total, 4)
+    # Separate rates: ✅ explicitly sponsored vs 🟡 company licensed only
+    visa_sponsored_count = sum(1 for j in jobs if j.visa_status and "✅" in j.visa_status)
+    licensed_count = sum(1 for j in jobs if j.visa_status and "🟡" in j.visa_status)
+    visa_sponsored_rate = round(visa_sponsored_count / total, 4)
+    licensed_rate = round(licensed_count / total, 4)
 
     # Salary stats
     salary_nums = [_parse_salary_number(j.salary) for j in jobs]
@@ -121,7 +124,8 @@ async def get_stats(
 
     return {
         "total_jobs": total,
-        "sponsor_rate": sponsor_rate,
+        "visa_sponsored_rate": visa_sponsored_rate,
+        "licensed_rate": licensed_rate,
         "avg_salary": avg_salary,
         "salary_disclosed_rate": salary_disclosed_rate,
         "by_location": by_location,

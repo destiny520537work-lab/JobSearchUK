@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { Briefcase, Shield, PoundSterling, BarChart3 } from 'lucide-react'
+import { Briefcase, ShieldCheck, Building2, PoundSterling, BarChart3 } from 'lucide-react'
 
 function Card({ icon: Icon, label, value, color }) {
   return (
@@ -20,8 +20,11 @@ export default function StatsCards({ stats }) {
 
   if (!stats) return null
 
-  const sponsorPct = stats.sponsor_rate != null
-    ? `${Math.round(stats.sponsor_rate * 100)}%`
+  const sponsoredPct = stats.visa_sponsored_rate != null
+    ? `${Math.round(stats.visa_sponsored_rate * 100)}%`
+    : '—'
+  const licensedPct = stats.licensed_rate != null
+    ? `${Math.round(stats.licensed_rate * 100)}%`
     : '—'
   const avgSalary = stats.avg_salary != null
     ? `£${stats.avg_salary.toLocaleString()}`
@@ -31,9 +34,10 @@ export default function StatsCards({ stats }) {
     : '—'
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+    <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
       <Card icon={Briefcase} label={t('stats.totalJobs')} value={stats.total_jobs} color="bg-blue-500" />
-      <Card icon={Shield} label={t('stats.canSponsor')} value={sponsorPct} color="bg-green-500" />
+      <Card icon={ShieldCheck} label={t('stats.visaSponsored')} value={sponsoredPct} color="bg-green-500" />
+      <Card icon={Building2} label={t('stats.companyLicensed')} value={licensedPct} color="bg-yellow-500" />
       <Card icon={PoundSterling} label={t('stats.avgSalary')} value={avgSalary} color="bg-purple-500" />
       <Card icon={BarChart3} label={t('stats.withSalary')} value={salaryPct} color="bg-orange-500" />
     </div>

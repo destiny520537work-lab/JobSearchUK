@@ -4,7 +4,7 @@
   "dateTabs": { "today": "Aujourd'hui", "threeDays": "3 Jours", "thisWeek": "Cette semaine", "twoWeeks": "2 Semaines", "all": "Tout" },
   "sortTabs": { "bestMatch": "Meilleure correspondance", "bestMatchHint": "(Importez votre CV d'abord)", "topSalary": "Meilleur salaire", "newest": "Plus récent" },
   "filters": { "title": "Filtres", "visaStatus": "Statut visa", "location": "Lieu", "salary": "Salaire", "jobType": "Type de poste", "skills": "Compétences", "any": "Tout", "clearAll": "Tout effacer" },
-  "stats": { "totalJobs": "Total postes", "canSponsor": "Sponsor visa", "avgSalary": "Salaire moyen", "withSalary": "Avec salaire" },
+  "stats": { "totalJobs": "Total postes", "visaSponsored": "Visa sponsorisé", "companyLicensed": "Entreprise agréée", "avgSalary": "Salaire moyen", "withSalary": "Avec salaire" },
   "charts": { "byLocation": "Par lieu", "byVisa": "Statut visa", "bySalary": "Tranches salariales" },
   "table": { "date": "Date", "company": "Entreprise", "type": "Type", "jobTitle": "Poste", "location": "Lieu", "salary": "Salaire", "visaStatus": "Visa", "noResults": "Aucun poste trouvé.", "showing": "{{count}} sur {{total}} postes", "exportXLSX": "Exporter Excel" },
   "footer": { "updatedEvery": "Données mises à jour toutes les 6 heures", "lastUpdate": "Dernière mise à jour : {{time}} UTC", "source": "Source : LinkedIn Guest API | Registre GOV.UK", "disclaimer": "⚠️ Les infos visa sont indicatives — vérifiez toujours avec l'employeur" },

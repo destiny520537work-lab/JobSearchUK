@@ -20,7 +20,43 @@ Cron Worker (every 6h)
 Users see only cached data — no real-time LinkedIn requests, so no ban risk.
 
 ---
+## User Flow
 
+```
+sequenceDiagram
+    participant Cron as Cron Worker (6h)
+    participant Scraper as Scraper.py
+    participant VC as Visa Verification (3-Layer)
+    participant DB as PostgreSQL (Supabase)
+    actor User
+    participant FE as React Frontend (Vercel)
+    participant BE as FastAPI Backend (Railway/Render)
+
+    Note over Cron, DB: Data Sourcing Phase (Every 6 Hours)
+    Cron->>Scraper: Trigger periodic scrape
+    Scraper->>Scraper: Fetch LinkedIn Guest API
+    Scraper->>VC: Run 3-Layer Verification
+    Note right of VC: 1. Regex 2. Sponsor Register 3. Verdict
+    VC-->>Scraper: ✅/⚠️/🟡/❌/Not specified
+    Scraper->>DB: Upsert job data (Cached)
+
+    Note over User, BE: User Interaction Phase
+    User->>FE: Access Dashboard
+    FE->>BE: GET /api/jobs (Filter/Sort/Page)
+    BE->>DB: Pure DB Query (No real-time API)
+    DB-->>BE: Cached Job Data
+    BE-->>FE: JSON Results
+
+    User->>FE: Upload CV for matching
+    FE->>BE: POST /api/match (TF-IDF Match)
+    BE-->>FE: Match Scores & Recommendations
+
+    User->>FE: Export Data
+    FE->>BE: GET /api/export
+    BE-->>FE: XLSX File
+```
+
+---
 ## Quick Start (Local Development)
 
 ### Backend

@@ -59,14 +59,14 @@ export default function ChartsPanel({ stats }) {
       <div className="bg-white rounded-xl border border-gray-200 p-4">
         <div className="text-sm font-semibold text-gray-700 mb-3">{t('charts.byVisa')}</div>
         <ResponsiveContainer width="100%" height={180}>
-          <PieChart>
+          <PieChart margin={{ top: 20, bottom: 0, left: 0, right: 0 }}>
             <Pie
               data={visaData}
               dataKey="value"
               nameKey="name"
               cx="50%"
-              cy="50%"
-              outerRadius={65}
+              cy="55%"
+              outerRadius={60}
               label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
               labelLine={false}
             >

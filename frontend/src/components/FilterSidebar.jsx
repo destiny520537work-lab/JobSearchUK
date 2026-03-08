@@ -11,6 +11,15 @@ const VISA_OPTIONS = [
   { value: 'Not specified', label: 'Not specified' },
 ]
 
+const JOB_TYPE_MAP = {
+  '数据': 'Data',
+  '产品': 'Product',
+  'AI': 'AI',
+  '商业': 'Business',
+  '定量': 'Quantitative',
+  '其他': 'Other',
+}
+
 const SALARY_BANDS = [
   { value: null, label: 'Any' },
   { value: 20000, label: '£20k+' },
@@ -122,7 +131,10 @@ export default function FilterSidebar({ filters, onUpdate }) {
 
         <FilterSection title={t('filters.jobType')}>
           <CheckboxList
-            options={filterOptions.job_types}
+            options={(filterOptions.job_types || []).map(t => ({
+              value: t,
+              label: JOB_TYPE_MAP[t] || t,
+            }))}
             selected={filters.job_type}
             onChange={val => onUpdate({ job_type: val })}
           />

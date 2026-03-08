@@ -20,9 +20,9 @@ Cron Worker (every 6h)
 Users see only cached data — no real-time LinkedIn requests, so no ban risk.
 
 ---
+
 ## User Flow
 
-```
 sequenceDiagram
     participant Cron as Cron Worker (6h)
     participant Scraper as Scraper.py
@@ -54,9 +54,67 @@ sequenceDiagram
     User->>FE: Export Data
     FE->>BE: GET /api/export
     BE-->>FE: XLSX File
-```
 
 ---
+
+## Technical Architecture
+
+graph TB
+    subgraph Client_Layer["Frontend - React / Vercel"]
+        UI["React App"]
+        Dashboard["Stats Charts & Job Table"]
+        CV_Match["CV Upload / TF-IDF Match"]
+        I18n["i18next (EN/ZH/FR/ES/NL)"]
+    end
+
+    subgraph Backend_Layer["Backend - FastAPI / Railway / Render"]
+        API["FastAPI Routes"]
+        
+        subgraph Worker_System["Cron Worker - APScheduler"]
+            Cron["Every 6h Job"]
+            Scraper["LinkedIn Guest API Scraper"]
+        end
+
+        subgraph Logic_Engine["Processing Engine"]
+            Parser["HTML Parser"]
+            VisaEngine["Visa 3-Layer Verification"]
+            SponsorLoader["GOV.UK CSV Loader"]
+        end
+
+        subgraph Services["API Handlers"]
+            StatsSvc["Stats Calculator"]
+            ExportSvc["XLSX Exporter"]
+            MatchSvc["CV Similarity Scorer"]
+        end
+    end
+
+    subgraph Storage_Layer["Data Persistence - Supabase / PostgreSQL"]
+        DB[("PostgreSQL")]
+        SponsorCSV["backend/data/sponsor_register.csv"]
+    end
+
+    %% Workflow Connections
+    UI <--> API
+    Cron --> Scraper
+    Scraper --> Parser
+    Parser --> VisaEngine
+    
+    %% Visa Verification Flow
+    VisaEngine -->|Layer 1| Regex["Sentence-level Regex"]
+    VisaEngine -->|Layer 2| FuzzyMatch["GOV.UK Fuzzy Match"]
+    VisaEngine -->|Layer 3| Verdict["Combined Verdict"]
+    
+    %% Data Flow
+    Verdict --> DB
+    SponsorCSV --> SponsorLoader
+    SponsorLoader --> FuzzyMatch
+    API --> DB
+    
+    %% Legacy Reference
+    Archive[/"_archive/ Original CLI Tool"/] -.->|Redesigned from| Backend_Layer
+
+---    
+
 ## Quick Start (Local Development)
 
 ### Backend

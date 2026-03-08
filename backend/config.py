@@ -14,7 +14,7 @@ EXPERIENCE_LEVEL = "1,2"  # Internship, Entry level
 
 # Pagination
 PAGE_SIZE = 25
-MAX_PAGES = 6       # 6 pages × 25 = 150 results per keyword
+MAX_PAGES = 10      # 10 pages × 25 = 250 results per keyword
 MAX_APPLICANTS = 150
 
 # Retry settings
@@ -41,6 +41,19 @@ SEARCH_KEYWORDS = [
     "Full Stack Developer Graduate",
     "Frontend Developer Graduate",
     "Graduate Developer",
+    "Software Engineer",
+    "Backend Developer",
+    "Frontend Developer",
+    "Full Stack Developer",
+    "Web Developer",
+    "Mobile Developer",
+    "iOS Developer",
+    "Android Developer",
+    "Java Developer",
+    "Python Developer",
+    "React Developer",
+    "Node.js Developer",
+    ".NET Developer",
 
     # ── Data & Analytics ─────────────────────────────────────────
     "Data Analyst Graduate",
@@ -51,6 +64,15 @@ SEARCH_KEYWORDS = [
     "Data Science Graduate Scheme",
     "Junior Data Scientist",
     "Product Analyst",
+    "Data Scientist",
+    "BI Analyst",
+    "Reporting Analyst",
+    "Insights Analyst",
+    "Marketing Analyst",
+    "Financial Analyst",
+    "Risk Analyst",
+    "Operations Analyst",
+    "SQL Analyst",
 
     # ── Machine Learning & AI ────────────────────────────────────
     "Machine Learning Engineer Graduate",
@@ -58,6 +80,12 @@ SEARCH_KEYWORDS = [
     "AI Engineer Graduate",
     "NLP Engineer Graduate",
     "Computer Vision Engineer Graduate",
+    "Machine Learning Engineer",
+    "AI Engineer",
+    "Deep Learning Engineer",
+    "MLOps Engineer",
+    "Research Scientist",
+    "Applied Scientist",
 
     # ── Data Engineering & Cloud ─────────────────────────────────
     "Data Engineer Graduate",
@@ -65,13 +93,47 @@ SEARCH_KEYWORDS = [
     "Cloud Engineer Graduate",
     "DevOps Engineer Graduate",
     "Platform Engineer Graduate",
+    "Data Engineer",
+    "Cloud Engineer",
+    "DevOps Engineer",
+    "Platform Engineer",
+    "Site Reliability Engineer",
+    "Infrastructure Engineer",
+    "Systems Engineer",
+    "AWS Engineer",
+    "Azure Engineer",
+    "ETL Developer",
 
-    # ── Quant & Business ─────────────────────────────────────────
+    # ── Cybersecurity ──────────────────────────────────────────────
+    "Cyber Security Analyst",
+    "Security Engineer",
+    "SOC Analyst",
+    "Information Security Analyst",
+    "Penetration Tester",
+
+    # ── Product & Business ─────────────────────────────────────────
     "Quantitative Analyst Graduate",
     "Business Analyst Graduate",
     "Credit Risk Analyst Graduate",
     "Technology Graduate Scheme",
     "Technology Analyst Graduate",
+    "Business Analyst",
+    "Product Manager",
+    "Product Owner",
+    "Scrum Master",
+    "Project Manager Technology",
+    "IT Consultant",
+    "Technology Consultant",
+    "Management Consultant Technology",
+    "Solutions Architect",
+
+    # ── Graduate Schemes (broad) ───────────────────────────────────
+    "Graduate Scheme Technology",
+    "Graduate Scheme Data",
+    "Graduate Scheme IT",
+    "Graduate Programme Engineering",
+    "Graduate Analyst",
+    "IT Graduate",
 ]
 
 # Title keywords to exclude (with special logic for manager)

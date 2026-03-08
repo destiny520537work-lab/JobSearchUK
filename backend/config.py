@@ -14,8 +14,8 @@ EXPERIENCE_LEVEL = "1,2"  # Internship, Entry level
 
 # Pagination
 PAGE_SIZE = 25
-MAX_PAGES = 4
-MAX_APPLICANTS = 100
+MAX_PAGES = 6       # 6 pages × 25 = 150 results per keyword
+MAX_APPLICANTS = 150
 
 # Retry settings
 MAX_RETRIES = 3
@@ -31,22 +31,47 @@ SCRAPE_INTERVAL_HOURS = 6
 # Data retention
 RETENTION_DAYS = 30
 
-# Search keywords (14 presets)
+# Search keywords — CS & Data focus for international graduate students
 SEARCH_KEYWORDS = [
+    # ── Software Engineering ──────────────────────────────────────
+    "Graduate Software Engineer",
+    "Junior Software Engineer",
+    "Software Developer Graduate",
+    "Backend Developer Graduate",
+    "Full Stack Developer Graduate",
+    "Frontend Developer Graduate",
+    "Graduate Developer",
+
+    # ── Data & Analytics ─────────────────────────────────────────
+    "Data Analyst Graduate",
     "Junior Data Analyst",
     "Data Analyst",
-    "Product Analyst",
-    "Statistical Programmer",
     "Business Intelligence Analyst",
-    "NLP Data Analyst",
+    "Analytics Engineer",
     "Data Science Graduate Scheme",
-    "AI Product Manager",
-    "Prompt Engineer",
-    "Social Data Analyst",
-    "Business Analyst",
-    "Credit Risk Analyst Junior",
-    "Quantitative Research Assistant",
-    "Learning Analytics Specialist",
+    "Junior Data Scientist",
+    "Product Analyst",
+
+    # ── Machine Learning & AI ────────────────────────────────────
+    "Machine Learning Engineer Graduate",
+    "Junior Machine Learning Engineer",
+    "AI Engineer Graduate",
+    "NLP Engineer Graduate",
+    "Computer Vision Engineer Graduate",
+
+    # ── Data Engineering & Cloud ─────────────────────────────────
+    "Data Engineer Graduate",
+    "Junior Data Engineer",
+    "Cloud Engineer Graduate",
+    "DevOps Engineer Graduate",
+    "Platform Engineer Graduate",
+
+    # ── Quant & Business ─────────────────────────────────────────
+    "Quantitative Analyst Graduate",
+    "Business Analyst Graduate",
+    "Credit Risk Analyst Graduate",
+    "Technology Graduate Scheme",
+    "Technology Analyst Graduate",
 ]
 
 # Title keywords to exclude (with special logic for manager)

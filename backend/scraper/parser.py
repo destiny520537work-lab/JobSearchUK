@@ -123,14 +123,27 @@ def filter_by_applicants(applicant_count) -> bool:
 
 def classify_job_type(title: str) -> str:
     t = title.lower()
-    if any(k in t for k in ["data analyst", "data science", "analytics"]):
+    # Software Engineering (check before data to avoid misclassifying "data engineer")
+    if any(k in t for k in [
+        "software engineer", "software developer", "backend", "frontend",
+        "full stack", "fullstack", "platform engineer", "devops", "cloud engineer",
+        "site reliability", "sre", "infrastructure engineer",
+    ]):
+        return "软件"
+    if any(k in t for k in [
+        "data engineer", "data analyst", "data science", "analytics engineer",
+        "analytics", "business intelligence", " bi ",
+    ]):
         return "数据"
+    if any(k in t for k in [
+        "machine learning", "ml engineer", "ai engineer", "nlp", "ai ",
+        "computer vision", "deep learning", "prompt engineer", "llm",
+    ]):
+        return "AI"
     if any(k in t for k in ["product analyst", "product manager"]):
         return "产品"
-    if any(k in t for k in ["business analyst", "business intelligence", " bi "]):
+    if any(k in t for k in ["business analyst", "technology analyst"]):
         return "商业"
-    if any(k in t for k in ["nlp", "ai ", "prompt engineer", "machine learning"]):
-        return "AI"
     if any(k in t for k in ["quantitative", "statistical", "credit risk"]):
         return "定量"
     return "其他"

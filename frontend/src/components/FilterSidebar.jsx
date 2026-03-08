@@ -12,9 +12,10 @@ const VISA_OPTIONS = [
 ]
 
 const JOB_TYPE_MAP = {
+  '软件': 'Software Eng',
   '数据': 'Data',
+  'AI': 'AI / ML',
   '产品': 'Product',
-  'AI': 'AI',
   '商业': 'Business',
   '定量': 'Quantitative',
   '其他': 'Other',

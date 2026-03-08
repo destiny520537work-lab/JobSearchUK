@@ -11,10 +11,12 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from database import init_db
+from database import init_db, Job, AsyncSessionLocal
 from routers import jobs, stats, filters, export, match
 from scraper.sponsor_list import load_sponsor_set
 from scraper.worker import run_scrape_job
+from scraper.parser import classify_job_type
+from sqlalchemy import select, update
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 logger = logging.getLogger(__name__)
@@ -82,6 +84,23 @@ async def shutdown():
 async def trigger_scrape():
     asyncio.create_task(run_scrape_job())
     return {"message": "Scrape job started in background."}
+
+
+@app.post("/api/admin/reclassify", tags=["admin"])
+async def reclassify_job_types():
+    """Re-run classify_job_type on all existing jobs using the current classifier."""
+    async with AsyncSessionLocal() as db:
+        result = await db.execute(select(Job.id, Job.title))
+        rows = result.all()
+        updated = 0
+        for job_id, title in rows:
+            new_type = classify_job_type(title or "")
+            await db.execute(
+                update(Job).where(Job.id == job_id).values(job_type=new_type)
+            )
+            updated += 1
+        await db.commit()
+    return {"message": f"Reclassified {updated} jobs."}
 
 
 @app.get("/api/health", tags=["health"])

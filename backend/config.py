@@ -22,8 +22,8 @@ MAX_RETRIES = 3
 RETRY_DELAY = 60  # seconds
 
 # Request delay (anti-ban): random between MIN and MAX
-MIN_DELAY = 2.0
-MAX_DELAY = 5.0
+MIN_DELAY = 0.8
+MAX_DELAY = 2.0
 
 # Cron interval
 SCRAPE_INTERVAL_HOURS = 6

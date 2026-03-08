@@ -1,12 +1,13 @@
 """
 Cron worker: scrape LinkedIn every 6 hours, write results to DB.
-Single-threaded, conservative rate (2-5s delay between requests).
+Detail pages fetched concurrently (3 threads) with 0.8-2s delays.
 """
 
 import asyncio
 import logging
 import random
 import time
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta
 
 import requests
@@ -214,13 +215,13 @@ async def run_scrape_job():
             logger.info("  Found %d candidate jobs", len(raw_jobs))
 
             enriched = []
-            for job in raw_jobs:
-                result = _enrich_job(job, sponsor_set)
-                if result:
-                    result["source_keyword"] = keyword
-                    enriched.append(result)
-                delay = random.uniform(MIN_DELAY, MAX_DELAY)
-                time.sleep(delay)
+            with ThreadPoolExecutor(max_workers=3) as pool:
+                futures = [pool.submit(_enrich_job, job, sponsor_set) for job in raw_jobs]
+                for future in futures:
+                    result = future.result()
+                    if result:
+                        result["source_keyword"] = keyword
+                        enriched.append(result)
 
             await _upsert_jobs(enriched, keyword)
             total_saved += len(enriched)

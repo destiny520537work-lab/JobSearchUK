@@ -31,18 +31,26 @@ from config import (
     TIME_FILTER,
 )
 from database import AsyncSessionLocal, Job
-from scraper.parser import (
+
+from scraper.parser import(
+    parse_job_cards,
+    parse_job_detail
+)
+from services.job_filter import(
+    filter_by_applicants,
+    filter_by_title
+)
+from services.job_classify import(
     classify_job_type,
-    classify_project_type,
+    classify_project_type
+)
+from services.job_extract import(
     extract_company_size,
     extract_education,
     extract_salary,
-    extract_skill_keywords,
-    filter_by_applicants,
-    filter_by_title,
-    parse_job_cards,
-    parse_job_detail,
+    extract_skill_keywords
 )
+
 from scraper.sponsor_list import get_sponsor_set
 from scraper.visa_checker import check_sponsor_list, classify_visa_from_text, final_visa_verdict
 from sqlalchemy import select, update

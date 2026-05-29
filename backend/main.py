@@ -15,7 +15,7 @@ from database import init_db, Job, AsyncSessionLocal
 from routers import jobs, stats, filters, export, match
 from scraper.sponsor_list import load_sponsor_set
 from scraper.worker import run_scrape_job
-from scraper.parser import classify_job_type
+from services.job_classify import classify_job_type
 from sqlalchemy import select, update
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")

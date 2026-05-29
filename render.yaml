@@ -8,6 +8,14 @@ services:
     healthCheckPath: /api/health
     envVars:
       - key: DATABASE_URL
-        sync: false
+        fromDatabase:
+          name: gradjobs-db
+          property: connectionString
       - key: SCRAPE_ON_STARTUP
         value: "true"
+
+databases:
+  - name: gradjobs-db
+    databaseName: gradjobs
+    user: gradjobs
+    plan: free

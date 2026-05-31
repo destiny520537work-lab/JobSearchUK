@@ -16,9 +16,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite+aiosqlite:///./gradjobs.db")
-# Railway provides postgresql:// but asyncpg requires postgresql+asyncpg://
 if DATABASE_URL.startswith("postgresql://"):
     DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://", 1)
+# asyncpg uses ssl=require not sslmode=require
+DATABASE_URL = DATABASE_URL.replace("sslmode=require", "ssl=require")
 
 engine = create_async_engine(DATABASE_URL, echo=False)
 AsyncSessionLocal = async_sessionmaker(engine, expire_on_commit=False)
